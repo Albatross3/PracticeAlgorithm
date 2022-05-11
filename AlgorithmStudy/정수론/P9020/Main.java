@@ -1,4 +1,4 @@
-package AlgorithmStudy;
+package AlgorithmStudy.정수론.P9020;
 
 // 백준 - 골드바흐의 추측
 // 1. n이 소수인지 판단하는 함수 활용
@@ -16,7 +16,8 @@ public class Main {
         StringBuilder sb=new StringBuilder();
         T=Integer.parseInt(br.readLine());
         int N=10000;
-        boolean isNotPrime[]=new boolean[N+1];
+        boolean[] isNotPrime;
+        isNotPrime = new boolean[N+1];
         for(int i=2; i<=Math.sqrt(N); i++){
             if(!isNotPrime[i]){
                 for(int j=i+i; j<=N; j+=i)
