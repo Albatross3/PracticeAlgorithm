@@ -1,4 +1,4 @@
-package Homework;
+package Homework.진리표작성;
 
 import java.io.BufferedReader;
 import java.io.IOException;

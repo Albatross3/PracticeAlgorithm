@@ -1,10 +1,11 @@
-package AlgorithmStudy.그래프탐색.P1260;
+package AlgorithmStudy.그래프.P1260;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+// 그래프 - 인접리스트로 표현
 // 그래프 - DFS 와 BFS
 public class Main {
     static int V,E,S;
@@ -20,7 +21,7 @@ public class Main {
         // 인접 리스트로 그래프 구현
         graph=new ArrayList<>(V+1);
         for (int i=0; i<V+1; i++) {
-            graph.add(new ArrayList<Integer>());
+            graph.add(new ArrayList<>());
         }
 
         for(int i=0; i<E; i++){
