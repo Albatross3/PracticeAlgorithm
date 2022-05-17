@@ -3,6 +3,7 @@ package Homework.너비우선탐색;
 // 백준 1260번과 거의 유사
 // 1. 인접리스트 구현하는 것에서 조금 해멨다
 // 2. 무향 그래프라서  s->d , d->s 2개의 연결이 필요하다
+// 3. 정렬하는 코드가 graph 클래스에 있는 것이 더 나아 보인다
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
