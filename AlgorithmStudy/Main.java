@@ -1,5 +1,6 @@
 package AlgorithmStudy;
 
+// 백준 5430
 // 1. 자바 정규식에 따른 split 방법
 // 2. trim() 을 이용한 공백 제거
 // 3.  Arrays.asList()로 만든 List에 새로운 원소를 추가하거나 삭제 할 수 없다.
