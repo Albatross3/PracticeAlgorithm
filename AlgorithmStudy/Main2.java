@@ -4,57 +4,94 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.StringTokenizer;
 
 public class Main2 {
-    static int N,M,R;
-    static ArrayList<ArrayList<Integer>> graph=new ArrayList<>();
-    static boolean[] visited;
-    static int[] visitedOrder;
-    static int order=1;
+    static int N;
     public static void main(String[] args) throws IOException {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st=new StringTokenizer(br.readLine());
         StringBuilder sb=new StringBuilder();
-        N=Integer.parseInt(st.nextToken());
-        M=Integer.parseInt(st.nextToken());
-        R=Integer.parseInt(st.nextToken());
-        for(int i=0; i<=N; i++){
-            graph.add(new ArrayList<>());
+        N=Integer.parseInt(br.readLine());
+        MaxHeap maxHeap=new MaxHeap();
+        for(int i=0; i<N; i++){
+            int x=Integer.parseInt(br.readLine());
+            if(x==0) sb.append(maxHeap.delete()).append("\n");
+            else maxHeap.insert(x);
         }
-        visited=new boolean[N+1];
-        visitedOrder=new int[N+1];
-        for(int i=0; i<M; i++){
-            st=new StringTokenizer(br.readLine());
-            int u=Integer.parseInt(st.nextToken());
-            int v=Integer.parseInt(st.nextToken());
-            graph.get(u).add(v);
-            graph.get(v).add(u);
-        }
-        // 오름차순 정렬
-        for(int i=0; i<=N; i++){
-            Collections.sort(graph.get(i));
-        }
-        // dfs
-        dfs(R);
-        for(int i=1; i<=N; i++) sb.append(visitedOrder[i]).append("\n");
         System.out.println(sb);
     }
-    public static void dfs(int start){
-        // 1. 체크인
-        visited[start]=true;
-        // 2. 목적지인가?
-        visitedOrder[start]=order++;
-        // 3. 연결된 곳 순회
-        for(int v:graph.get(start)){
-            //      4. 갈 수 있는가?
-            if(!visited[v]) {
-                //          5. 간다
-                dfs(v);
-            }
-        }
 
-        // 6. 체크아웃
+}
+class MaxHeap{
+    int last;
+    ArrayList<Integer> arr;
+    public MaxHeap(){
+        last=0;
+        arr=new ArrayList<>();
+        arr.add(0); // 0번째는 사용안함
+    }
+    // 삽입
+    public void insert(int n){
+        // 1. 새로운 노드에 추가
+        arr.add(n);
+        last++;
+        // 2. 부모 노드와 비교하여 maxHeap 유지
+        int temp=last;
+        while(temp!=1){
+            if(arr.get(temp/2) < arr.get(temp)) {
+                int tempValue=arr.get(temp);
+                arr.add(temp,arr.get(temp/2));
+                arr.add(temp/2,tempValue);
+                temp=temp/2;
+            }
+            else break;
+        }
+    }
+    // 삭제
+    public int delete(){
+        if(last==0) return 0;
+        else{
+            int answer=arr.get(1);
+            // 1. 마지막 노드 제거
+            int removedValue=arr.remove(last);
+            last--;
+            arr.add(1,removedValue);
+            // 2. 자식 노드와 비교 ( 자식 노드 값 중 큰 값과 교환 )
+            int temp=1;
+            while(temp<=last){
+                int tempValue=arr.get(temp);
+                // 자식 노드 없는 경우
+                if(temp*2>last) break;
+                // 자식 노드 1개
+                else if(temp*2==last){
+                    int left=arr.get(temp*2);
+                    if(tempValue < left) {
+                        arr.add(temp,left);
+                        arr.add(temp*2,tempValue);
+                        temp=temp*2;
+                    }
+                    else break;
+                }
+                // 자식 노드 2개
+                else{
+                    int left=arr.get(temp*2);
+                    int right=arr.get(temp*2+1);
+                    if(tempValue < left || tempValue <right){
+                        if(left > right) {
+                            arr.add(temp,left);
+                            arr.add(temp*2,tempValue);
+                            temp=temp*2;
+                        }
+                        else{
+                            arr.add(temp,right);
+                            arr.add(temp*2+1,tempValue);
+                            temp=temp*2+1;
+                        }
+                    }
+                    else break;
+                }
+
+            }
+            return answer;
+        }
     }
 }
