@@ -11,7 +11,7 @@ public class Practice {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb=new StringBuilder();
         T=Integer.parseInt(br.readLine());
-        int[] dp=new int[101];
+        long[] dp=new long[101];
         dp[1]=1; dp[2]=1; dp[3]=1;
         dp[4]=2; dp[5]=2;
         for(int i=6; i<=100; i++){
