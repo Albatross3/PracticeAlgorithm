@@ -1,4 +1,4 @@
-package AlgorithmStudy.분할정복.P2447;
+package AlgorithmStudy.재귀.P2447;
 
 // P2447
 // 분할 정복 - 별 찍기 - 10
