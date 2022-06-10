@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.Hash.P1;
+package Programmers.CodingTestKit.해시.P1;
 
 // 해시 - 완주하지 못한 선수
 import java.util.HashMap;

@@ -1,10 +1,8 @@
-package Programmers.CodingTestKit.Hash.P2;
+package Programmers.CodingTestKit.해시.P2;
 
 // 1. 2중 for문
 // 2. 해시 방식
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class Solution {
     public static void main(String[] args) {
