@@ -1,5 +1,6 @@
 package Programmers.CodingTestKit.완전탐색.P1;
 
+// int[] 로 반환하는 문제 : 보통 ArrayList 만들고 int[] 로 변환하게 됨
 import java.util.*;
 
 public class Solution {
