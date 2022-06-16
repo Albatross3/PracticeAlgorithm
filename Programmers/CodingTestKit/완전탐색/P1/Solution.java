@@ -11,14 +11,7 @@ public class Solution {
     public static int[] solution(int[] answers) {
         // 각 학생 점수 구하기
         int score1=0,score2=0,score3=0;
-        HashMap<Integer,Integer> map1=new HashMap<>();
-        map1.put(0,1); map1.put(1,2); map1.put(2,3); map1.put(3,4); map1.put(4,5);
-        HashMap<Integer,Integer> map2=new HashMap<>();
-        map2.put(0,2); map2.put(2,2); map2.put(4,2); map2.put(6,2);
-        map2.put(1,1); map2.put(3,3); map2.put(5,4); map2.put(7,5);
-        HashMap<Integer,Integer> map3=new HashMap<>();
-        map3.put(0,3); map3.put(2,1); map3.put(4,2); map3.put(6,4); map3.put(8,5);
-        map3.put(1,3); map3.put(3,1); map3.put(5,2); map3.put(7,4); map3.put(9,5);
+
         for(int i=0; i<answers.length; i++){
             // 1번 수포자 점수
             int i1=i%5;
