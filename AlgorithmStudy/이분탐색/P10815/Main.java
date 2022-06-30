@@ -3,6 +3,10 @@ package AlgorithmStudy.이분탐색.P10815;
 // 이분탐색 구현 방법 2가지
 //      1. while 문
 //      2. 재귀방법
+// 시간복잡도 - O(M*logN)
+
+// 3. 이분탐색이 아닌 더 빠른 방법은
+// 메모리를 더 활용해서 해당 index 에 값이 있는지 없는지만 판단
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,7 +39,8 @@ public class Main {
         Arrays.sort(card);
         // 이진 탐색
         for(int i=0; i<M; i++){
-            sb.append(binarySearch(card,query[i])).append(" ");
+//            sb.append(binarySearch(card,query[i])).append(" ");
+            sb.append(binarySearch2(card,query[i],0,card.length-1)).append(" ");
         }
         System.out.println(sb);
     }
@@ -54,6 +59,13 @@ public class Main {
             }
         }
         return 0;
+    }
+    public static int binarySearch2(int[] arr,int target,int left,int right){
+        int middle=(left+right)/2;
+        if(left>right) return 0;
+        if(target < arr[middle]) return binarySearch2(arr,target,left,middle-1);
+        else if(target > arr[middle]) return binarySearch2(arr, target, middle + 1, right);
+        else return 1;
     }
 
 }

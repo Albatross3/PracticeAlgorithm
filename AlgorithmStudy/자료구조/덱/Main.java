@@ -1,4 +1,4 @@
-package AlgorithmStudy.조합론;
+package AlgorithmStudy.자료구조.덱;
 
 // Deque 이라는 자료구조를 연결 리스트를 이용해서 구현
 // LinkedList 의 내부 함수를 이용해도 풀이 가능
@@ -6,10 +6,9 @@ package AlgorithmStudy.조합론;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-public class Main3 {
+public class Main {
     static int num;
     static String command;
     static int data;
@@ -18,7 +17,6 @@ public class Main3 {
         StringTokenizer st;
         StringBuilder sb=new StringBuilder();
         Deque dq=new Deque();
-        LinkedList
         num = Integer.parseInt(br.readLine());
         for (int c = 0; c < num; c++) {
             st = new StringTokenizer(br.readLine());
