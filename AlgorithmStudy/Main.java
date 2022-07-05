@@ -4,26 +4,34 @@ package AlgorithmStudy;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Stack;
 
 public class Main {
-    static int N,M;
-    static boolean[] card;
+    static int n;
+    static Stack<Integer> stack = new Stack<>();
+    static boolean isPossible=true;
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
         StringBuilder sb = new StringBuilder();
-        N = Integer.parseInt(br.readLine());
-        card=new boolean[20000001];
-        st=new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            card[Integer.parseInt(st.nextToken())+10000000]=true;
-        }
-        M = Integer.parseInt(br.readLine());
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < M; i++) {
-            if(card[Integer.parseInt(st.nextToken())+10000000]) sb.append(1+" ");
-            else sb.append(0 + " ");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+
+        // 다음에 넣어야할 숫자
+        int index=1;
+        for (int i = 0; i < n; i++) {
+            int target = Integer.parseInt(br.readLine());
+
+            if(index <= target){
+                while (index <= target) {
+                    stack.push(index);
+                    sb.append("+").append("\n");
+                    index++;
+                }
+            }else if(stack.peek()!=target){
+                System.out.println("NO");
+                return;
+            }
+            stack.pop();
+            sb.append("-").append("\n");
         }
         System.out.println(sb);
     }

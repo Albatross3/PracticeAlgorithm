@@ -1,4 +1,4 @@
-package ThisIsCT.구현;
+package ThisIsCT.구현.DAY4_3;
 
 import java.io.BufferedReader;
 import java.io.IOException;
