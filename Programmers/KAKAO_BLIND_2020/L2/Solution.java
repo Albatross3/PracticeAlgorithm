@@ -6,7 +6,9 @@ import java.util.Stack;
 // 괄호 변환
 public class Solution {
     public static void main(String[] args) {
-        System.out.println(isRight("()((()))"));
+//        System.out.println(isRight("()((()))"));
+        Solution s = new Solution();
+        System.out.println(s.solution("()))((()"));
     }
     public String solution(String p) {
         StringBuilder sb = new StringBuilder();
