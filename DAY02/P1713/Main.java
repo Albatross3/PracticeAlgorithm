@@ -1,6 +1,5 @@
 package DAY02.P1713;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -43,6 +42,7 @@ public class Main {
 
             }
         }
+
         Collections.sort(list, new Comparator<Person>() {
             @Override
             public int compare(Person o1, Person o2) {
@@ -73,6 +73,7 @@ class Person implements Comparable<Person>{
     public int compareTo(Person o) {
         int comp1=Integer.compare(count,o.count);
         if(comp1==0){
+            // timeStamp 가 작은 쪽이 오래된 사진
             return Integer.compare(timeStamp,o.timeStamp);
         }
         return comp1;

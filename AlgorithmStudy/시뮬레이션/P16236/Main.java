@@ -1,4 +1,4 @@
-package AlgorithmStudy;
+package AlgorithmStudy.시뮬레이션.P16236;
 // 아기 상어
 // 최단 경로를 구하는 문제는 bfs 사용, 
 // tree 구조라고 확신 하는 경우만 dfs 사용
