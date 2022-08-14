@@ -10,7 +10,7 @@ import java.util.*;
 public class Solution {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        String[] a=solution.solution(new String[]{"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"},
+        String[] a=solution.solution(new String[]{"XYZ", "XWY", "WXA"},
                 new int[]{2,3,4});
         System.out.println(Arrays.toString(a));
 
@@ -35,6 +35,14 @@ public class Solution {
         for (int i = 0; i < 26; i++) {
             if(alphabet[i]) s += (char)('A'+i);
         }
+        // orders 정렬
+        for (int i = 0; i < orders.length; i++) {
+            String origin = orders[i];
+            char[] ordered = origin.toCharArray();
+            Arrays.sort(ordered);
+            String sortedString = new String(ordered);
+            orders[i] = sortedString;
+        }
 
         for (int i = 0; i < course.length; i++) {
             comb = new char[course[i]+1];
@@ -45,17 +53,26 @@ public class Solution {
 
             // 각 조합을 얼마나 가지고 있는지 확인하기
             for (int c = 0; c < orders.length; c++) {
-                for (String s : map.keySet()) {
-                    if(orders[c].length() < course[i]) break;
-                    boolean isContain=true;
-                    for (int index = 0; index < s.length(); index++) {
-                        if(!orders[c].contains(Character.toString(s.charAt(index)))) {
-                            isContain=false;
-                            break;
-                        }
-                    }
-                    if(isContain) map.put(s, map.get(s) + 1);
+                // 조합 길이 보다 작은 경우 -> pass
+                if(orders[c].length() < course[i]) continue;
+                // 조합 길이와 같은 경우
+                else if(orders[c].length() == course[i]) {
+                    map.put(orders[c], map.get(orders[c]) + 1);
                 }
+                // 조합 길이보다 큰 경우
+                else {
+                    for (String s : map.keySet()) {
+                        boolean isContain=true;
+                        for (int index = 0; index < s.length(); index++) {
+                            if(!orders[c].contains(Character.toString(s.charAt(index)))) {
+                                isContain=false;
+                                break;
+                            }
+                        }
+                        if(isContain) map.put(s, map.get(s) + 1);
+                    }
+                }
+
             }
 
             // 최댓값 뽑기
