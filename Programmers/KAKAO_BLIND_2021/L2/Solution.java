@@ -14,6 +14,8 @@ public class Solution {
                 new int[]{2,3,4});
         System.out.println(Arrays.toString(a));
 
+
+
     }
 
     static Map<String, Integer> map = new HashMap<>();
@@ -44,6 +46,7 @@ public class Solution {
             // 각 조합을 얼마나 가지고 있는지 확인하기
             for (int c = 0; c < orders.length; c++) {
                 for (String s : map.keySet()) {
+                    if(orders[c].length() < course[i]) break;
                     boolean isContain=true;
                     for (int index = 0; index < s.length(); index++) {
                         if(!orders[c].contains(Character.toString(s.charAt(index)))) {
