@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 // 이진 탐색 활용
-// 같은 숫자 중 왼쪽 index 찾기와 오른쪽 index 찾기
+// lower bound, upper bound 구하는 이진 탐색 변형 문제
 public class Main {
     static int N,X;
     static int[] num;
