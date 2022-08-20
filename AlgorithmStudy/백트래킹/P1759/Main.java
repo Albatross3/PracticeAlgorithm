@@ -3,6 +3,7 @@ package AlgorithmStudy.백트래킹.P1759;
 
 // 삼성 SDS 알고리즘 특강 문제
 // 암호 만들기
+// char[] -> String 변환하는 부분 잘 알아두기 (char[] 일부분만 변환 가능)
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,8 +39,9 @@ public class Main {
 
     public static void combination(int n) {
         if(n==L+1){
-            String result2 = new String(result, 1, L );
-            if(isSatisfied(result2)) sb.append(result2).append("\n");
+            if(isSatisfied(result)) {
+                sb.append(new String(result,1,L)).append("\n");
+            }
             return;
         }
         for (int i = 0; i < C; i++) {
@@ -52,11 +54,11 @@ public class Main {
         }
     }
 
-    public static boolean isSatisfied(String result) {
+    public static boolean isSatisfied(char[] arr) {
         int countConsonants=0;
         int countVowels=0;
-        for (int i = 0; i < result.length(); i++) {
-            if (result.charAt(i) == 'a' || result.charAt(i) == 'e' || result.charAt(i) == 'i' || result.charAt(i) == 'o' || result.charAt(i) == 'u') {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == 'a' || arr[i] == 'e' || arr[i] == 'i' || arr[i] == 'o' || arr[i] == 'u') {
                 countVowels++;
             }
             else countConsonants++;

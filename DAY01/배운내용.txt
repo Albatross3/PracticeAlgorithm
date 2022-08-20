@@ -1,6 +1,0 @@
-1. DFS , BFS 활용문제
-  - DFS와 BFS를 변형한 문제들
-2. 정렬에서 comparable, comparator 활용 문제
-3. 시간복잡도
-
-문제로는 탈출, 후보 추천하기, 암호 만들기
