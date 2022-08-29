@@ -1,70 +1,57 @@
 package AlgorithmStudy.그래프탐색.P2667;
 
-// 그래프 - DFS, BFS의 활용 문제
-// DFS 로 풀어봄
-import java.io.*;
+// P2667
+// DFS 풀이
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
     static int N;
     static int[][] map;
-    static boolean[][] visited;
-
-    static int[] dy={-1,0,1,0}; // 북 동 남 서
-    static int[] dx={0,1,0,-1}; // 북 동 남 서
-
-    static ArrayList<Integer> apt=new ArrayList<>();
-    static int apartment;
+    static int count;
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
+    static List<Integer> homes = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb=new StringBuilder();
-        N=Integer.parseInt(br.readLine());
-
-        // 지도 입력받기
-        map=new int[N+1][N+1];
-        visited=new boolean[N+1][N+1];
-        for(int i=1; i<N+1; i++){
-            String s=br.readLine();
-            for(int j=1; j<N+1; j++){
-                map[i][j]=s.charAt(j-1)-'0';
+        N = Integer.parseInt(br.readLine());
+        map = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            String s = br.readLine();
+            for (int j = 0; j < N; j++) {
+                map[i][j] = s.charAt(j) - '0';
             }
         }
-
-        // map[1][1] ~ map[N][N] 까지 들리면서 연결된 곳 순회하기
-        for (int i=1; i<N+1; i++){
-            for(int j=1; j<N+1; j++){
-                apartment=0;
-                if(map[i][j]==1 && !visited[i][j]){
+        // map 돌면서 dfs 실행
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                count=0;
+                if(map[i][j]==1){
                     dfs(i,j);
-                    apt.add(apartment);
+                    homes.add(count);
                 }
             }
         }
-
-        // 출력
-        sb.append(apt.size()).append("\n");
-        Collections.sort(apt);
-        for(int n: apt){
-            sb.append(n).append("\n");
-        }
-        System.out.println(sb);
-
+        System.out.println(homes);
     }
-    static void dfs(int y,int x){
+
+    public static void dfs(int x, int y) {
         // 1. 체크인
-        visited[y][x]=true;
+        map[x][y]=0;
         // 2. 목적지인가?
-        apartment++;
+        count++;
         // 3. 연결된 곳 순회
-        for(int i=0; i<4; i++) {
-            int Y=y+dy[i];
-            int X=x+dx[i];
-            //      4. 갈 수 있는가?
-            if( Y<=N && X<=N && map[Y][X]==1 && !visited[Y][X] ) {
-                //          5. 간다
-                dfs(Y,X);
+        for (int d = 0; d < 4; d++) {
+            int tempX = x + dx[d];
+            int tempY = y + dy[d];
+            // 4. 갈 수 있는가? -> map 안에 존재 & map[tempX][tempY]=1
+            if (tempX >= 0 && tempX < N && tempY >= 0 && tempY < N && map[tempX][tempY] == 1) {
+                // 5. 간다
+                dfs(tempX,tempY);
             }
         }
-        // 6. 체크아웃
     }
+
 }
