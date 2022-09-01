@@ -1,8 +1,7 @@
-package Programmers.CodingTestKit.탐욕법.L1;
+package Programmers.CodingTestKit.탐욕법.P1;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Solution {
     public static void main(String[] args) {

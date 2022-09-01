@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.탐욕법.L1;
+package Programmers.CodingTestKit.탐욕법.P1;
 
 
 // 안되는 case 가 여러번 생길 수 있기 때문에 
