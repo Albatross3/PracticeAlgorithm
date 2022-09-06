@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.스택_큐.P4;
+package Programmers.CodingTestKit.스택_큐.프린터;
 // 프로그래머스 - 프린터
 import java.util.*;
 

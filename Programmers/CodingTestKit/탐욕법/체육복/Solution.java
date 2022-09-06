@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.탐욕법.P1;
+package Programmers.CodingTestKit.탐욕법.체육복;
 
 import java.util.Arrays;
 import java.util.LinkedList;

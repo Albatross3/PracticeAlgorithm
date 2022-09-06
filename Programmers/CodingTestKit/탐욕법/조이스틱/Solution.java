@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.탐욕법.P2;
+package Programmers.CodingTestKit.탐욕법.조이스틱;
 
 import java.util.ArrayList;
 import java.util.Collections;

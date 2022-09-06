@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.완전탐색.P3;
+package Programmers.CodingTestKit.완전탐색.소수찾기;
 
 // 길이를 다양하게 뽑기 위해서 backtracking 을 여러번 돌리면 된다
 import java.util.HashSet;

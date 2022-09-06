@@ -1,5 +1,5 @@
-package Programmers.CodingTestKit.해시.P2;
-
+package Programmers.CodingTestKit.해시.전화번호목록;
+// 아직 못품
 // 1. 2중 for문
 // 2. 해시 방식
 import java.util.Arrays;

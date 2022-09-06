@@ -1,5 +1,5 @@
-package Programmers.CodingTestKit.그래프.P1;
-
+package Programmers.CodingTestKit.그래프.가장먼노드;
+// 아직 못품
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 

@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.정렬.P2;
+package Programmers.CodingTestKit.정렬.가장큰수;
 
 // 프로그래머스
 import java.util.Arrays;

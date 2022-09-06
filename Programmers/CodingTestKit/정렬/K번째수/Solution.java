@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.정렬.P1;
+package Programmers.CodingTestKit.정렬.K번째수;
 
 // int 배열로 반환하는 경우
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.완전탐색.P1;
+package Programmers.CodingTestKit.완전탐색.모의고사;
 
 // int[] 로 반환하는 문제 : 보통 ArrayList 만들고 int[] 로 변환하게 됨
 import java.util.ArrayList;
