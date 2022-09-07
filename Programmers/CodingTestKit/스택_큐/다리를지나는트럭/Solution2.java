@@ -3,6 +3,7 @@ package Programmers.CodingTestKit.스택_큐.다리를지나는트럭;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// 길이 만큼 도달할 때 탈출하므로 임의의 0 값으로 채우기
 public class Solution2 {
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         int time = 0;
