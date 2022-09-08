@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2022.L1;
+package Programmers.KAKAO_BLIND_2022.신고결과받기;
 
 // 신고 결과 받기
 // Map 과 Set 은 순서가 보장 안된다는 것을 알게됨
