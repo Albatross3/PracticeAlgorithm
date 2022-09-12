@@ -1,4 +1,4 @@
-package AlgorithmStudy.두포인터.P1806;
+package AlgorithmStudy.투포인터.P1806;
 
 import java.io.BufferedReader;
 import java.io.IOException;

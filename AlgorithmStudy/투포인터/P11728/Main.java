@@ -1,4 +1,4 @@
-package AlgorithmStudy.두포인터.P11728;
+package AlgorithmStudy.투포인터.P11728;
 
 // 두 포인터 종류
 // 1. 한 개의 배열에서 2개의 포인터 사용
