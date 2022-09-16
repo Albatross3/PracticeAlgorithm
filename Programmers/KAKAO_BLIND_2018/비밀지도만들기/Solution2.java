@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2018.L1;
+package Programmers.KAKAO_BLIND_2018.비밀지도만들기;
 
 public class Solution2 {
     public static void main(String[] args) {
