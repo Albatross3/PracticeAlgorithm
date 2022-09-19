@@ -1,4 +1,4 @@
-package Programmers.KAKAO_INTERN_2022.L2;
+package Programmers.KAKAO_INTERN_2022.두큐합같게만들기;
 
 import java.util.LinkedList;
 import java.util.Queue;
