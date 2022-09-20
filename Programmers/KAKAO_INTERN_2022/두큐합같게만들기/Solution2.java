@@ -26,6 +26,11 @@ public class Solution2 {
 
         int task1=0;
         int task2=0;
+
+        int size1 = queue1.length;
+        int size2 = queue2.length;
+        int largeOne = Integer.max(size1, size2);
+        int smallOne = Integer.min(size1, size2);
         while (sum1 != sum2) {
             // 큐1 -> 큐2
             if (sum1 > sum2) {
@@ -46,7 +51,7 @@ public class Solution2 {
             answer++;
 
             // 종료 조건
-            if (task1 + task2 == (queue1.length + queue2.length)*2) {
+            if (task1 + task2 == largeOne*2 + smallOne ) {
                 return -1;
             }
         }
