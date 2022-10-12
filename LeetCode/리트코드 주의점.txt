@@ -1,0 +1,2 @@
+리트코드 주의점
+1. static 변수 생성하게 되면 다음 test case 에 영향을 주는 듯하다 (아마 compile 1번만 하고 test case 를 반복해서 돌리는 것 같다)
