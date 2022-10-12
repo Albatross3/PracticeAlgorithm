@@ -1,5 +1,7 @@
 package LeetCode.WordBreak;
 
+// 리트코드 139번
+// DP 활용하는 문제인데 다시 풀어봐야 함
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

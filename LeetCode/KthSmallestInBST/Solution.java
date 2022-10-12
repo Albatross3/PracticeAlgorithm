@@ -1,5 +1,6 @@
 package LeetCode.KthSmallestInBST;
 // 리트코드 230 번
+// inorder Traversal 구현
 import java.util.ArrayList;
 
 public class Solution {

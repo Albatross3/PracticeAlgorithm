@@ -1,5 +1,6 @@
 package LeetCode.WordSearch;
-
+// 리트코드 79번
+// DFS 활용 문제
 public class Solution {
     public static void main(String[] args) {
         Solution s = new Solution();
