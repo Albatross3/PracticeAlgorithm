@@ -1,4 +1,4 @@
-package Homework.너비우선탐색;
+package Homework.DiscreteMath.너비우선탐색;
 
 // 백준 1260번과 거의 유사
 // 1. 인접리스트 구현하는 것에서 조금 해멨다

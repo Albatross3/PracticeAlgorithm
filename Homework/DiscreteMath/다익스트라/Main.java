@@ -1,4 +1,4 @@
-package Homework.다익스트라;
+package Homework.DiscreteMath.다익스트라;
 
 
 import java.io.BufferedReader;
