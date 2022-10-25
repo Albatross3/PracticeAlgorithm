@@ -16,7 +16,7 @@ public class Solution {
             String order = st.nextToken();
             String id = st.nextToken();
             switch (order) {
-                case "Enter" -> {
+                case "Enter":
                     String nickname = st.nextToken();
                     inOrOut.add(" 들어왔습니다.");
 
@@ -32,29 +32,34 @@ public class Solution {
                         who.add(n);
                     }
                     break;
-                }
-                case "Leave" -> {
+                case "Leave":
                     inOrOut.add(" 나갔습니다.");
                     who.add(map.get(id));
-                }
-                case "Change" -> {
-                    String nickname = st.nextToken();
+                    break;
+                case "Change":
+                    nickname = st.nextToken();
                     map.get(id).change(nickname);
                     break;
-                }
             }
+
         }
         ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < who.size(); i++) {
+        for (
+                int i = 0; i < who.size(); i++) {
             result.add(who.get(i).nickname + "님이" + inOrOut.get(i));
         }
+
         String[] answer = new String[result.size()];
-        for (int i = 0; i < answer.length; i++) {
+        for (
+                int i = 0;
+                i < answer.length; i++) {
             answer[i] = result.get(i);
         }
         return answer;
     }
 }
+
+
 class Nickname {
     String nickname;
 
