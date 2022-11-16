@@ -1,4 +1,4 @@
-package AlgorithmStudy;
+package AlgorithmStudy.그리디알고리즘.P20070;
 // 11:20 ~ 구현
 import java.io.BufferedReader;
 import java.io.IOException;
