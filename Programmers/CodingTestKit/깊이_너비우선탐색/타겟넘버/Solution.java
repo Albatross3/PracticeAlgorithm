@@ -1,4 +1,4 @@
-package Programmers.CodingTestKit.깊이_너비우선탐색;
+package Programmers.CodingTestKit.깊이_너비우선탐색.타겟넘버;
 
 public class Solution {
 

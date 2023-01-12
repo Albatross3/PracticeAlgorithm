@@ -6,56 +6,56 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main3 {
-    static int N, M;
-    static int[] number;
-    static boolean[] isVisited;
-    static int[] comb;
-    static Set<ArrayList<Integer>> set = new LinkedHashSet<>();
-    static StringBuilder sb = new StringBuilder();
-
+    static int N;
+    static List<Conference> list = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken()); // target 깊이
-
-        isVisited = new boolean[N];
-        number = new int[N];
-        st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
+        N = Integer.parseInt(br.readLine());
         for (int i = 0; i < N; i++) {
-            number[i] = Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            list.add(new Conference(s, e));
         }
-        Arrays.sort(number);
-        comb = new int[M];
-        back(0);
 
-        for (ArrayList<Integer> arr : set) {
-            for (int num : arr) {
-                sb.append(num+" ");
+        Collections.sort(list);
+
+        // 끝나는 시간 기준
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (Conference c : list) {
+            if(pq.peek() == null) {
+                pq.add(c.end);
+                continue;
             }
-            sb.append("\n");
+            if(pq.peek() <= c.start) {
+                pq.poll();
+                pq.add(c.end);
+            }
+            else {
+                pq.add(c.end);
+            }
         }
-        System.out.println(sb);
+        System.out.println(pq.size());
     }
 
-    public static void back(int depth) {
-        if (depth == M) {
-            ArrayList<Integer> arr = new ArrayList<>();
-            for (int i = 0; i < comb.length; i++) {
-                arr.add(comb[i]);
-            }
-            set.add(arr);
-            return;
-        }
-        for (int i = 0; i < number.length; i++) {
-            if (!isVisited[i]) {
-                comb[depth] = number[i];
-                isVisited[i] = true;
-                back(depth + 1);
-                isVisited[i] = false;
-            }
-        }
-    }
+
 
 }
+class Conference implements Comparable<Conference>{
+    int start;
+    int end;
+
+    public Conference(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public int compareTo(Conference o) {
+        if(this.start == o.start) return this.end - o.end;
+        else return this.start - o.start;
+    }
+}
+
 
