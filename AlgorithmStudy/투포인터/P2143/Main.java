@@ -8,77 +8,76 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int T;
-    static int N, M;
-    static int[] A;
-    static int[] B;
-
-    static ArrayList<Integer> sumA = new ArrayList<>();
-    static ArrayList<Integer> sumB = new ArrayList<>();
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        T = Integer.parseInt(br.readLine());
-        N = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        A = new int[N + 2];
-        for (int i = 1; i < N + 1; i++) {
-            A[i] = Integer.parseInt(st.nextToken());
-        }
-        M = Integer.parseInt(br.readLine());
-        st = new StringTokenizer(br.readLine());
-        B = new int[M + 2];
-        for (int i = 1; i < M + 1; i++) {
-            B[i] = Integer.parseInt(st.nextToken());
-        }
-
-        // A와 B의 부분합을 저장
-        for (int i = 1; i < N + 1; i++) {
-            int sum = 0;
-            for (int j = i; j < N + 1; j++) {
-                sum += A[j];
-                sumA.add(sum);
-            }
-        }
-        for (int i = 1; i < M + 1; i++) {
-            int sum = 0;
-            for (int j = i; j < M + 1; j++) {
-                sum += B[j];
-                sumB.add(sum);
-            }
-        }
-        Collections.sort(sumA);
-        Collections.sort(sumB);
-
-        int count=0;
-        for (int i = 0; i < sumA.size(); i++) {
-            count += upperBound(sumB, T - sumA.get(i)) - lowerBound(sumB, T - sumA.get(i));
-        }
-        System.out.println(count);
+  static int T;
+  static int n, m;
+  static int[] A;
+  static int[] B;
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st;
+    T = Integer.parseInt(br.readLine());
+    n = Integer.parseInt(br.readLine());
+    A = new int[n];
+    st = new StringTokenizer(br.readLine());
+    for (int i = 0; i < n; i++) {
+      A[i] = Integer.parseInt(st.nextToken());
+    }
+    m = Integer.parseInt(br.readLine());
+    B = new int[m];
+    st = new StringTokenizer(br.readLine());
+    for (int i = 0; i < m; i++) {
+      B[i] = Integer.parseInt(st.nextToken());
     }
 
-    public static int lowerBound(ArrayList<Integer> arr, int target) {
-        int start = 0, end = arr.size();
-        while (start < end) {
-            int middle = (start + end) / 2;
-            if (arr.get(middle) < target) {
-                start = middle + 1;
-            } else {
-                end = middle;
-            }
-        }
-        return end;
-    }
+    // 누적합 집합 만들기
+    ArrayList<Integer> setA = getSetOfPrefixSum(A);
+    ArrayList<Integer> setB = getSetOfPrefixSum(B);
 
-    public static int upperBound(ArrayList<Integer> arr, int target) {
-        int start = 0, end = arr.size();
-        while (start < end) {
-            int middle = (start + end) / 2;
-            if (arr.get(middle) <= target) {
-                start = middle + 1;
-            } else {
-                end = middle;
-            }
+    // A 는 오름차순, B는 내림차순 정렬
+    Collections.sort(setA);
+    Collections.sort(setB, Collections.reverseOrder());
+
+    // 투 포인터 활용
+    long count = 0;
+    int ptA = 0;
+    int ptB = 0;
+    while (ptA >= 0 && ptA < setA.size() && ptB >= 0 && ptB < setB.size()) {
+      int currentA = setA.get(ptA);
+      int target = T - currentA;
+      if (setB.get(ptB) > target) {
+        ptB++;
+      } else if (setB.get(ptB) < target) {
+        ptA++;
+      }
+      else {
+        long countA = 0;
+        long countB = 0;
+        // A 집합 내에서 같은 값들 가져오기
+        while (ptA < setA.size() && setA.get(ptA) == currentA) {
+          countA++;
+          ptA++;
         }
-        return end;
+
+        // B 집합 내에서 같은 값들 가져오기
+        while (ptB < setB.size() && setB.get(ptB) == target) {
+          countB++;
+          ptB++;
+        }
+        count += countA * countB;
+      }
     }
+    System.out.println(count);
+  }
+
+  public static ArrayList<Integer> getSetOfPrefixSum(int[] array) {
+    ArrayList<Integer> arr = new ArrayList<>();
+    for (int i = 0; i < array.length; i++) {
+      int sum = 0;
+      for (int j = i; j < array.length; j++) {
+        sum += array[j];
+        arr.add(sum);
+      }
+    }
+    return arr;
+  }
 }
