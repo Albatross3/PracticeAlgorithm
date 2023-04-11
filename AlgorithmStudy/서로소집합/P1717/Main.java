@@ -8,48 +8,48 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int n,m;
-    static int[] parent;
-    static StringBuilder sb=new StringBuilder();
+    public static int n, m;
+    public static int[] parent;
     public static void main(String[] args) throws IOException {
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st=new StringTokenizer(br.readLine());
-        n=Integer.parseInt(st.nextToken());
-        m=Integer.parseInt(st.nextToken());
-        parent=new int[n+1];
-        for(int i=0; i<n+1; i++)
-            parent[i]=i;
-        for(int i=0; i<m; i++){
-            st=new StringTokenizer(br.readLine());
-            int operation=Integer.parseInt(st.nextToken());
-            int value1=Integer.parseInt(st.nextToken());
-            int value2=Integer.parseInt(st.nextToken());
-            // Union
-            if(operation==0)
-                union(value1,value2);
-            // Find
-            else if(operation==1)
-                isSameSet(value1,value2);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        parent = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+        }
+        for (int i = 0; i < m; i++) {
+            st = new StringTokenizer(br.readLine());
+            int operation = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            if (operation == 0) {
+                union(a, b);
+            } else if (operation == 1) {
+                if(isSameSet(a,b)) sb.append("YES").append("\n");
+                else sb.append("NO").append("\n");
+            }
         }
         System.out.println(sb);
     }
-    // a가 속한 트리의 root element 가리킴
-    public static int find(int a){
-        if(parent[a]==a) return a;
-        else return find(parent[a]);
+
+    public static int find(int x) {
+        if(parent[x] == x) return x;
+        else return parent[x] = find(parent[x]);
     }
-    // i가 속한 tree 와 j가 속한 트리를 합치기
-    // i쪽에 몰아주기
-    public static void union(int i,int j){
-        int root_i=find(i);
-        int root_j=find(j);
-        parent[root_j]=root_i;
+
+    // 1, 3 합치기에서 3의 parent 에 1의 parent 를 대입
+    public static void union(int x, int y) {
+        int parentX = find(x);
+        int parentY = find(y);
+        parent[parentY] = parentX;
     }
-    public static void isSameSet(int i,int j){
-        int root_i=find(i);
-        int root_j=find(j);
-        if(root_i==root_j) sb.append("YES").append("\n");
-        else sb.append("NO").append("\n");
+
+    public static boolean isSameSet(int x, int y) {
+        return find(x) == find(y);
     }
 
 }
