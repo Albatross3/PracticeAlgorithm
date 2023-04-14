@@ -1,4 +1,4 @@
-package AlgorithmStudy.다익스트라.P1753;
+package AlgorithmStudy.최단거리.다익스트라.P1753;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,9 +64,8 @@ public class Main {
             for (Node next : graph.get(current.end)) {
                 if (dist[current.end] + next.cost < dist[next.end]) {
                     dist[next.end] = dist[current.end] + next.cost;
+                    pq.add(new Node(next.end, dist[next.end]));
                 }
-                pq.add(new Node(next.end, dist[next.end]));
-
             }
         }
     }
