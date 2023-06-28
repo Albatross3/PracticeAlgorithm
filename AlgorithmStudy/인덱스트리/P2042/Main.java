@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+// bottom-up 방식 - 인덱스 트리
 public class Main {
     static int N, M, K;
     static int startIndex;
