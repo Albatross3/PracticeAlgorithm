@@ -1,5 +1,6 @@
 package SAMSUNG_SDS.상반기_2022.문제2;
 
+// 예술성
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

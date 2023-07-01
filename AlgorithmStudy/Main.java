@@ -1,5 +1,5 @@
 package AlgorithmStudy;
-// 백준 2206번 
+// 백준 2206번
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +17,7 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         map = new int[N + 1][M + 1];
 
+        int xx =3;
         for (int i = 1; i < N + 1; i++) {
             String s = br.readLine();
             for (int j = 1; j < M + 1; j++) {
