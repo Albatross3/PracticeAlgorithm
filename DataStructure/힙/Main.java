@@ -64,7 +64,6 @@ class MinHeap {
         int lastValue = list.get(list.size() - 1);
         list.set(1, lastValue);
         list.remove(list.size() - 1);
-
         // 3. 루트 노드(1번 인덱스) 부터 시작해서 자식과 비교 -> 자식 보다 크면 swap (자식 중 더 작은 값과 swap)
         int currentIndex = 1;
         int lastIndex = list.size() - 1;
