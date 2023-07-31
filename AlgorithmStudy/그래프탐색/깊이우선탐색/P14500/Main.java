@@ -1,4 +1,4 @@
-package AlgorithmStudy.그래프탐색.P14500;
+package AlgorithmStudy.그래프탐색.깊이우선탐색.P14500;
 
 // DFS 활용 문제
 // 'ㅗ' 모양을 찾는 더 쉬운 방법 있을 듯
