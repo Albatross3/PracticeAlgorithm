@@ -1,4 +1,4 @@
-package AlgorithmStudy.그래프탐색.P24444;
+package AlgorithmStudy.그래프탐색.너비우선탐색.P24444;
 
 import java.io.BufferedReader;
 import java.io.IOException;
