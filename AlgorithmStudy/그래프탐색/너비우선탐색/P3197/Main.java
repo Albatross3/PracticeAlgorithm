@@ -8,15 +8,13 @@ import java.util.*;
 public class Main {
     static int R, C;
     static char[][] map;
-    static List<int[]> swanPosition = new ArrayList<>();
-    static int startX, startY;
-    static int endX, endY;
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, 1, 0, -1};
-    static Queue<Position> waterNearIce;
-    static Queue<Position> swanExplored;
+    static List<int[]> swanInitPosition = new ArrayList<>();
+    static Queue<Cor> waterQueue = new LinkedList<>();
+    static Queue<Cor> swanQueue = new LinkedList<>();
     static boolean[][] isVisited;
-    static Queue<Position> q = new LinkedList<>();
+    static int startX, startY, endX, endY;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,91 +26,80 @@ public class Main {
             map[i] = br.readLine().toCharArray();
         }
 
-        // L 위치 찾기
-        waterNearIce = new LinkedList<>();
+        // 백조 1, 2 위치 찾기 + waterQueue 에 '.' 위치 넣기
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
                 if (map[i][j] == 'L') {
                     int[] p = new int[]{i, j};
-                    swanPosition.add(p);
-                    waterNearIce.add(new Position('.', i, j));
+                    swanInitPosition.add(p);
+                    waterQueue.add(new Cor(i, j));
                 } else if (map[i][j] == '.') {
-                    waterNearIce.add(new Position('.', i, j));
+                    waterQueue.add(new Cor(i, j));
                 }
             }
         }
 
-        startX = swanPosition.get(0)[0];
-        startY = swanPosition.get(0)[1];
+        startX = swanInitPosition.get(0)[0];
+        startY = swanInitPosition.get(0)[1];
+        endX = swanInitPosition.get(1)[0];
+        endY = swanInitPosition.get(1)[1];
 
-        endX = swanPosition.get(1)[0];
-        endY = swanPosition.get(1)[1];
-
-        swanExplored = new LinkedList<>();
+        // 최적화된 bfs 탐색 -> map 변화
+        int day = 0;
+        swanQueue.add(new Cor(startX, startY));
         isVisited = new boolean[R][C];
         isVisited[startX][startY] = true;
-        swanExplored.add(new Position('L', startX, startY));
 
-        int day = 0;
-        while (!isSwanCanMeet()) {
-            // map 변화
-            changeMap();
+        while (!swanCanMeet()) {
+            iceMelt();
             day++;
         }
         System.out.println(day);
     }
 
-    public static boolean isSwanCanMeet() {
-        while (!swanExplored.isEmpty()) {
-            Position current = swanExplored.poll();
-            if (current.x == endX && current.y == endY) return true;
+    public static boolean swanCanMeet() {
+        Queue<Cor> nextSwanQueue = new LinkedList<>();
+        while (!swanQueue.isEmpty()) {
+            Cor swanCurrent = swanQueue.poll();
+            if (swanCurrent.x == endX && swanCurrent.y == endY) return true;
             for (int d = 0; d < 4; d++) {
-                int nextX = current.x + dx[d];
-                int nextY = current.y + dy[d];
+                int nextX = swanCurrent.x + dx[d];
+                int nextY = swanCurrent.y + dy[d];
                 if (nextX < 0 || nextX >= R || nextY < 0 || nextY >= C || isVisited[nextX][nextY]) continue;
                 isVisited[nextX][nextY] = true;
-                if (map[nextX][nextY] == '.' || map[nextX][nextY] == 'L') {
-                    swanExplored.add(new Position('L', nextX, nextY));
-                } else if (map[nextX][nextY] == 'X') {
-                    q.add(new Position('L', nextX, nextY));
+                if (map[nextX][nextY] == 'X') {
+                    nextSwanQueue.add(new Cor(nextX, nextY));
+                } else {
+                    swanQueue.add(new Cor(nextX, nextY));
                 }
             }
         }
-
-
-        while (!q.isEmpty()) {
-            swanExplored.add(q.poll());
-        }
-
+        swanQueue = nextSwanQueue;
         return false;
     }
 
-    public static void changeMap() {
-        int i = 0;
-        int size = waterNearIce.size();
-        while (i < size) {
-            Position water = waterNearIce.poll();
+    public static void iceMelt() {
+        Queue<Cor> nextWaterQueue = new LinkedList<>();
+        while (!waterQueue.isEmpty()) {
+            Cor waterCurrent = waterQueue.poll();
             for (int d = 0; d < 4; d++) {
-                int nextX = water.x + dx[d];
-                int nextY = water.y + dy[d];
-                if (nextX < 0 || nextX >= R || nextY < 0 || nextY >= C) continue;
+                int nextX = waterCurrent.x + dx[d];
+                int nextY = waterCurrent.y + dy[d];
+                if (nextX < 0 || nextX >= R || nextY < 0 || nextY >= C || isVisited[nextX][nextY]) continue;
                 if (map[nextX][nextY] == 'X') {
                     map[nextX][nextY] = '.';
-                    waterNearIce.add(new Position('.', nextX, nextY));
+                    nextWaterQueue.add(new Cor(nextX, nextY));
                 }
             }
-            i++;
         }
+        waterQueue = nextWaterQueue;
     }
-
 }
-class Position {
-    char c;
+class Cor {
     int x;
     int y;
 
-    public Position(char c, int x, int y) {
-        this.c = c;
+    public Cor(int x, int y) {
         this.x = x;
         this.y = y;
     }
