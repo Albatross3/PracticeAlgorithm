@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2021.L2;
+package Programmers.KAKAO_BLIND_2021.메뉴리뉴얼;
 
 import java.util.*;
 

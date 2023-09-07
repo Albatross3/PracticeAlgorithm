@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2020.L2;
+package Programmers.KAKAO_BLIND_2020.괄호변환;
 
 import java.util.Stack;
 // refactoring -> isSplit() 함수 필요없음 <문제 잘못 이해>

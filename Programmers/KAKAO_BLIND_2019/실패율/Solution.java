@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2019.L1;
+package Programmers.KAKAO_BLIND_2019.실패율;
 
 import java.io.IOException;
 import java.util.ArrayList;

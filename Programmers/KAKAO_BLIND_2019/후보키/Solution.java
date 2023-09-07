@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2019.L2;
+package Programmers.KAKAO_BLIND_2019.후보키;
 
 import java.util.ArrayList;
 import java.util.HashSet;

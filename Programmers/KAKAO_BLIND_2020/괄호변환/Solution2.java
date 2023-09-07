@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2020.L2;
+package Programmers.KAKAO_BLIND_2020.괄호변환;
 
 import java.util.Stack;
 

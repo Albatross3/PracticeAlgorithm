@@ -1,4 +1,4 @@
-package Programmers.KAKAO_BLIND_2021.L2_2;
+package Programmers.KAKAO_BLIND_2021.순위검색;
 /*
 <초기 설계>
 1. 지원자마다 만들 수 있는 모든 조합을 key로서 map에 넣기
