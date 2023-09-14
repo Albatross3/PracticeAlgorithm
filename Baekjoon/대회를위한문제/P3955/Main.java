@@ -1,4 +1,4 @@
-package DAY05.P3955;
+package Baekjoon.대회를위한문제.P3955;
 
 import java.io.BufferedReader;
 import java.io.IOException;
