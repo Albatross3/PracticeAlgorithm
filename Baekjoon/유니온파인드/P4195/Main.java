@@ -1,4 +1,4 @@
-package Baekjoon.서로소집합.P4195;
+package Baekjoon.유니온파인드.P4195;
 
 import java.io.BufferedReader;
 import java.io.IOException;
