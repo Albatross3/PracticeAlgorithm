@@ -26,11 +26,11 @@ public class Main {
         result = new long[N + 1];
         Arrays.fill(result, INF);
         result[1] = 0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N - 1; i++) {
             for (int j = 0; j < M; j++) {
                 Edge edge = list.get(j);
                 if (result[edge.start] != INF && result[edge.end] > result[edge.start] + edge.cost) {
-                    result[edge.end]  = result[edge.start] + edge.cost;
+                    result[edge.end] = result[edge.start] + edge.cost;
                 }
             }
         }
