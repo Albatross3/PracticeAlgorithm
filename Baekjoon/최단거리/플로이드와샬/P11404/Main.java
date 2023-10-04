@@ -5,58 +5,45 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-
 public class Main {
     static int n, m;
-    static int[][] graph;
-    static int[][] dist;
+    static int[][] dp;
     static int MAX = 10000000;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
         n = Integer.parseInt(br.readLine());
         m = Integer.parseInt(br.readLine());
 
-        // graph 초기화
-        graph = new int[n + 1][n + 1];
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < n + 1; j++) {
-                if (i != j) {
-                    graph[i][j] = MAX;
-                }
+        dp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(i!=j) dp[i][j] = MAX;
             }
         }
-        // graph 만들기
-        StringTokenizer st;
+
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-
-            graph[a][b] = Math.min(graph[a][b], c);
+            dp[a - 1][b - 1] = Math.min(dp[a - 1][b - 1], c);
         }
 
-        // dist 배열 초기화
-        dist = new int[n + 1][n + 1];
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < n + 1; j++) {
-                dist[i][j] = graph[i][j];
-            }
-        }
-        // 플로이드 와샬
-        for (int k = 1; k < n + 1; k++) {
-            for (int i = 1; i < n + 1; i++) {
-                for (int j = 1; j < n + 1; j++) {
-                    graph[i][j] = Math.min(graph[i][k] + graph[k][j], graph[i][j]);
+        // Floyd-Warshall
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k][j]);
                 }
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < n + 1; j++) {
-                if (graph[i][j] == MAX) sb.append(0).append(" ");
-                else sb.append(graph[i][j]).append(" ");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if(dp[i][j]==MAX) sb.append(0).append(" ");
+                else sb.append(dp[i][j]).append(" ");
             }
             sb.append("\n");
         }
