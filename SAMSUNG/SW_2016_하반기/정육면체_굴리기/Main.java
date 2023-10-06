@@ -1,4 +1,4 @@
-package SAMSUNG.하반기_2016.문제1;
+package SAMSUNG.SW_2016_하반기.정육면체_굴리기;
 
 import java.io.BufferedReader;
 import java.io.IOException;

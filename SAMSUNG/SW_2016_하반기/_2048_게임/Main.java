@@ -1,4 +1,4 @@
-package SAMSUNG.하반기_2016.문제2;
+package SAMSUNG.SW_2016_하반기._2048_게임;
 
 import java.io.BufferedReader;
 import java.io.IOException;

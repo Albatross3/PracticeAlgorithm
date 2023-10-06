@@ -1,4 +1,4 @@
-package SAMSUNG.하반기_2015.문제2;
+package SAMSUNG.SW_2015_하반기._2개의_사탕;
 
 // 중복되는 코드가 있을 때는 메서드로 만들기
 // simulation 에서 가지치기로 없앨 수 있다면 최대한 없애기

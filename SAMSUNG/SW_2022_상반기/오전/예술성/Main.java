@@ -1,4 +1,4 @@
-package SAMSUNG.상반기_2022.문제2;
+package SAMSUNG.SW_2022_상반기.오전.예술성;
 
 // 예술성
 import java.io.BufferedReader;
