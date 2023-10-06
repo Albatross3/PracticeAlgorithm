@@ -8,9 +8,7 @@ import java.util.*;
 public class Main {
     static int N, M, K;
     static Turret[][] map;
-    static int numOfTurret;
-    static boolean[][] isImpacted;
-    static List<Turret> attackedTurret;
+    static List<Turret> impactedTurret;
     static int[] dx = {0, 1, 0, -1}; // 우/하/좌/상
     static int[] dy = {1, 0, -1, 0}; // 우/하/좌/상
     static int[] lx = {-1, -1, 0, 1, 1, 1, 0, -1};
@@ -26,46 +24,33 @@ public class Main {
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < M; j++) {
-                int attack = Integer.parseInt(st.nextToken());
-                if (attack != 0) numOfTurret++;
-                map[i][j] = new Turret(attack, 0, i, j);
+                map[i][j] = new Turret(Integer.parseInt(st.nextToken()), 0, i, j);
             }
         }
+        for (int time = 1; time <= K; time++) {
+            // 부서지지 않은 터렛 1개인지 확인
+            if (findNotCollapsedTurret() == 1) {
+                break;
+            }
 
-        // 꺼내온 Turret 객체의 상태변화시키지 말것
-        while (K-- > 0) {
-            isImpacted = new boolean[N][M];
             // 1. 공격자 선정 및 공격력 증가 및 공격 시점 증가
             Turret attacker = findAttacker();
             attacker.attack += N + M;
-            attacker.t++;
-            int attack = attacker.attack;
+            attacker.t = time;
             // 2. 공격자의 공격
             //  2-1. 공격 대상자 선정
-            Turret defender = findDefender(attacker);
-
-            isImpacted[attacker.x][attacker.y] = true;
-
-            //  2-2. 레이저 공격 or 포탄 공격 -> 터렛 수 줄기 + 영향 받은 애들 추가해야함
+            Turret target = findTarget(attacker);
+            //  2-2. 레이저 공격 후 포탄 공격 -> (최단거리 or 8방향) + target 공격
             // 공격 받은 터렛들 -> 최단 경로 or 8방향 + defender
-            attackedTurret = new ArrayList<>();
+            impactedTurret = new ArrayList<>();
             Cor start = new Cor(attacker.x, attacker.y);
-            Cor destination = new Cor(defender.x, defender.y);
-            if (findShortestPath(start, destination)) {
-                // 레이저 공격
-                laserAttack(defender, attack);
-            } else {
-                // 포탄 공격
-                bulletAttack(defender, attack);
+            Cor destination = new Cor(target.x, target.y);
+            if (!laserAttack(start, destination, attacker.attack)) {
+                bulletAttack(start, destination, attacker.attack);
             }
-
+            impactedTurret.add(attacker);
             // 3. 포탑 부서짐
-            // 영향 받은 애들 상태 변경 시키기 -> isImpacted, numOfTurret
-            collapseTurret();
-            // 부서지지 않은 터렛 수 1개 되면 break
-            if (numOfTurret == 1) {
-                break;
-            }
+
             // 4. 포탑 정비
             setup();
         }
@@ -80,18 +65,27 @@ public class Main {
         System.out.println(max);
     }
 
-    private static Turret findAttacker() {
-        PriorityQueue<Turret> weakTurretPQ = new PriorityQueue<>(new Comparator<Turret>() {
-            @Override
-            public int compare(Turret o1, Turret o2) {
-                if (o1.attack == o2.attack) {
-                    if (o1.t == o2.t) {
-                        if (o1.x + o1.y == o2.x + o2.y) {
-                            return (o2.x + o2.y) - (o1.x + o1.y);
-                        } else return o2.y - o1.y;
-                    } else return o2.t - o1.t;
-                } else return o1.attack - o2.attack;
+    public static int findNotCollapsedTurret() {
+        int num = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (map[i][j].attack != 0) {
+                    num++;
+                }
             }
+        }
+        return num;
+    }
+
+    private static Turret findAttacker() {
+        PriorityQueue<Turret> weakTurretPQ = new PriorityQueue<>((o1, o2) -> {
+            if (o1.attack == o2.attack) {
+                if (o1.t == o2.t) {
+                    if (o1.x + o1.y == o2.x + o2.y) {
+                        return o2.y - o1.y;
+                    } else return (o2.x + o2.y) - (o1.x + o1.y);
+                } else return o2.t - o1.t;
+            } else return o1.attack - o2.attack;
         });
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
@@ -103,18 +97,15 @@ public class Main {
         return weakTurretPQ.poll();
     }
 
-    private static Turret findDefender(Turret attacker) {
-        PriorityQueue<Turret> strongTurretPQ = new PriorityQueue<>(new Comparator<Turret>() {
-            @Override
-            public int compare(Turret o1, Turret o2) {
-                if (o1.attack == o2.attack) {
-                    if (o1.t == o2.t) {
-                        if (o1.x + o1.y == o2.x + o2.y) {
-                            return (o1.x + o1.y) - (o2.x + o2.y);
-                        } else return o1.y - o2.y;
-                    } else return o1.t - o2.t;
-                } else return o2.attack - o1.attack;
-            }
+    private static Turret findTarget(Turret attacker) {
+        PriorityQueue<Turret> strongTurretPQ = new PriorityQueue<>((o1, o2) -> {
+            if (o1.attack == o2.attack) {
+                if (o1.t == o2.t) {
+                    if (o1.x + o1.y == o2.x + o2.y) {
+                        return o1.y - o2.y;
+                    } else return (o1.x + o1.y) - (o2.x + o2.y);
+                } else return o1.t - o2.t;
+            } else return o2.attack - o1.attack;
         });
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
@@ -127,85 +118,80 @@ public class Main {
         return strongTurretPQ.poll();
     }
 
-    private static boolean findShortestPath(Cor start, Cor destination) {
+
+    private static boolean laserAttack(Cor start, Cor target, int attack) {
         Queue<Cor> q = new LinkedList<>();
         q.add(start);
         boolean[][] isVisited = new boolean[N][M];
         isVisited[start.x][start.y] = true;
+        Cor[][] come = new Cor[N][M];
 
+        boolean isFindShortestPath = false;
         while (!q.isEmpty()) {
             Cor c = q.poll();
-            if (c.x == destination.x && c.y == destination.y) {
-                attackedTurret = c.path;
-                return true;
+            if (c.x == target.x && c.y == target.y) {
+                isFindShortestPath = true;
+                break;
             }
             for (int d = 0; d < 4; d++) {
-                int nx = getNX(c.x + dx[d]);
-                int ny = getNY(c.y + dy[d]);
-                if (map[nx][ny].attack != 0) {
+                int nx = (c.x + dx[d] + N) % N;
+                int ny = (c.y + dy[d] + M) % M;
+                if (!isVisited[nx][ny] && map[nx][ny].attack != 0) {
                     isVisited[nx][ny] = true;
-                    Cor next = new Cor(nx, ny, map[nx][ny]);
-                    next.path.addAll(c.path);
-                    q.add(next);
+                    come[nx][ny] = c;
+                    q.add(new Cor(nx, ny));
                 }
             }
         }
-        return false;
-    }
 
-    private static void laserAttack(Turret defender, int attack) {
-        defender.attack -= attack;
-        for (Turret turret : attackedTurret) {
-            if (turret.x != defender.x || turret.y != defender.y) {
-                map[turret.x][turret.y].attack -= attack / 2;
-            }
+        if (!isFindShortestPath) {
+            return false;
         }
+
+        // 역추적으로 경로 찾고 impactedTurret 에 넣기
+        int x = target.x;
+        int y = target.y;
+        while (x != start.x || y != start.y) {
+            impactedTurret.add(map[x][y]);
+            // 한꺼번에 변하는 문제 x 가 뒤에 영향을 준다
+            Cor cor = come[x][y];
+            x = cor.x;
+            y = cor.y;
+        }
+        // 공격
+        attack(target.x, target.y, attack);
+        return true;
     }
 
-    private static void bulletAttack(Turret defender, int attack) {
-        defender.attack -= attack;
-        attackedTurret.add(defender);
-        int X = defender.x;
-        int Y = defender.y;
-
+    private static void bulletAttack(Cor start, Cor target, int attack) {
+        impactedTurret.add(map[target.x][target.y]);
         for (int l = 0; l < 8; l++) {
-            int nx = getNX(X + lx[l]);
-            int ny = getNY(Y + ly[l]);
+            int nx = (target.x + lx[l] + N) % N;
+            int ny = (target.y + ly[l] + M) % M;
+            if (nx == start.x && ny == start.y) continue;
             if (map[nx][ny].attack != 0) {
-                map[nx][ny].attack -= attack / 2;
-                if (map[nx][ny].attack <= 0) {
-                    map[nx][ny].attack = 0;
-                }
-                attackedTurret.add(map[nx][ny]);
+                impactedTurret.add(map[nx][ny]);
+            }
+        }
+        // 공격
+        attack(target.x, target.y, attack);
+    }
+
+    private static void attack(int targetX, int targetY, int attack) {
+        // impactedTurret 에 있는 애들 공격
+        for (Turret turret : impactedTurret) {
+            if (turret.x == targetX && turret.y == targetY) {
+                turret.attack = Math.max(0, turret.attack - attack);
+            } else {
+                turret.attack = Math.max(0, turret.attack - attack / 2);
             }
         }
     }
 
-    private static int getNX(int nx) {
-        if(nx == -1) return N - 1;
-        else if(nx == N) return 0;
-        else return nx;
-    }
-
-    private static int getNY(int ny) {
-        if(ny == -1) return M - 1;
-        else if(ny == M) return 0;
-        else return ny;
-    }
-
-    private static void collapseTurret() {
-        for (Turret turret : attackedTurret) {
-            if (map[turret.x][turret.y].attack == 0) {
-                numOfTurret--;
-            }
-            isImpacted[turret.x][turret.y] = true;
-        }
-    }
-
-    private static void setup() {
+    public static void setup() {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                if (!isImpacted[i][j] && map[i][j].attack != 0) {
+                if (!impactedTurret.contains(map[i][j]) && map[i][j].attack != 0) {
                     map[i][j].attack += 1;
                 }
             }
@@ -215,19 +201,10 @@ public class Main {
     static class Cor {
         int x;
         int y;
-        List<Turret> path;
 
         public Cor(int x, int y) {
             this.x = x;
             this.y = y;
-            path = new ArrayList<>();
-        }
-
-        public Cor(int x, int y, Turret turret) {
-            this.x = x;
-            this.y = y;
-            path = new ArrayList<>();
-            path.add(turret);
         }
     }
 
