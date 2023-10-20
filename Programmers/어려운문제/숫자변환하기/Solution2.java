@@ -1,4 +1,4 @@
-package Programmers.연습문제.숫자변환하기;
+package Programmers.어려운문제.숫자변환하기;
 
 import java.util.Arrays;
 

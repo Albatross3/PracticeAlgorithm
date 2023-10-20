@@ -1,4 +1,4 @@
-package Programmers.연습문제.JadenCase문자열;
+package Programmers.어려운문제.JadenCase문자열;
 // 공백까지 다 구분해서 나오게 하는 방법 -> s.split(""); <trailing 도 가능>
 public class Solution {
     public static void main(String[] args) {

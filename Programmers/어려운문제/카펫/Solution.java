@@ -1,4 +1,4 @@
-package Programmers.연습문제.카펫;
+package Programmers.어려운문제.카펫;
 
 import java.util.ArrayList;
 

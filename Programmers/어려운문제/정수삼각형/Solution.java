@@ -1,4 +1,4 @@
-package Programmers.연습문제.정수삼각형;
+package Programmers.어려운문제.정수삼각형;
 
 public class Solution {
     public int solution(int[][] triangle) {

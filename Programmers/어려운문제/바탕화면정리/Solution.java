@@ -1,4 +1,4 @@
-package Programmers.연습문제.바탕화면정리;
+package Programmers.어려운문제.바탕화면정리;
 
 import java.util.ArrayList;
 import java.util.Collections;

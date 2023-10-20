@@ -1,4 +1,4 @@
-package Programmers.연습문제.최소공배수;
+package Programmers.어려운문제.최소공배수;
 
 public class Solution {
     public int solution(int[] arr) {

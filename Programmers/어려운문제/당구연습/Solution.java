@@ -1,4 +1,4 @@
-package Programmers.연습문제.당구연습;
+package Programmers.어려운문제.당구연습;
 
 // 예외 케이스에 대해 있는지 파악하는 능력 필요
 public class Solution {

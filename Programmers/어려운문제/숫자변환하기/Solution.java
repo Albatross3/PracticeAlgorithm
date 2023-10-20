@@ -1,4 +1,4 @@
-package Programmers.연습문제.숫자변환하기;
+package Programmers.어려운문제.숫자변환하기;
 import java.util.*;
 // bfs 로 최단 거리 찾는 풀이 -> 가지 3개씩 뻗어나가기
 public class Solution {

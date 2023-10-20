@@ -1,4 +1,4 @@
-package Programmers.연습문제.피보나치수;
+package Programmers.어려운문제.피보나치수;
 
 // 모듈러 연산을 활용한 문제
 public class Solution {
