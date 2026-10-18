@@ -6,3 +6,6 @@
 *.iml
 out
 gen
+
+# macOS
+.DS_Store
